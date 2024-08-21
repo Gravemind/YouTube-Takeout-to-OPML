@@ -9,6 +9,11 @@ def main():
         description="yt-opml.py takes Google's Takeout JSON or CSV for YouTube and converts it to an OPML file. The goal is to facilitate importing the OPML file into an RSS feed reader."
     )
     parser.add_argument(
+        "--name",
+        type=str,
+        help="Name of the folder in OPML output file."
+    )
+    parser.add_argument(
         "input",
         type=str,
         help="The JSON or CSV file provided by Google."
@@ -73,9 +78,9 @@ def main():
     head = et.SubElement(opml, "head")
     et.SubElement(head, "title").text = "Google Takeout"
     body = et.SubElement(opml, "body")
-    youtube = et.SubElement(body, "outline", 
-        title="YouTube Subscriptions",
-        text="YouTube Subscriptions",
+    youtube = et.SubElement(body, "outline",
+        title=args.name or "YouTube Subscriptions",
+        text=args.name or "YouTube Subscriptions",
         type="folder"
     )
 
